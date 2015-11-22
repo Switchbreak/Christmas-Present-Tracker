@@ -7,7 +7,7 @@ import (
 )
 
 type Person struct {
-	User		user.User
+	User		user.User `json:"-"`
 	Name		string
 	LastLogin	time.Time
 }
