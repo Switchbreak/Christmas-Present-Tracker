@@ -17,5 +17,5 @@ type Party struct {
 }
 
 type InvitedPerson struct {
-	Person		datastore.Key
+	Person		*datastore.Key
 }
