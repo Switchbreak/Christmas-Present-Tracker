@@ -1,9 +1,5 @@
 package model
 
-import (
-
-)
-
 type Item struct {
 	Name		string
 	Description	string
@@ -11,11 +7,13 @@ type Item struct {
 }
 
 type WishlistItem struct {
+	ID			string `datastore:"-"`
 	Item		Item
 	BoughtBy	Person
 }
 
 type BoughtItem struct {
+	ID			string `datastore:"-"`
 	Item		Item
 	BoughtFor	Person
 }
