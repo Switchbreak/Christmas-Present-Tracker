@@ -5,6 +5,7 @@ import (
 )
 
 type Comment struct {
+	ID		string `datastore:"-"`
 	Comment	string
 	Author	Person
 	Private	bool

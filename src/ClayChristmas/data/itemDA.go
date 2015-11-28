@@ -25,7 +25,11 @@ func GetWishlist(appContext appengine.Context, partyID string, personID string) 
 	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)
 
 	var wishlist []model.WishlistItem
-	_, err := datastore.NewQuery("WishlistItem").Ancestor(personKey).GetAll(appContext, &wishlist)
+	keys, err := datastore.NewQuery("WishlistItem").Ancestor(personKey).GetAll(appContext, &wishlist)
+	
+	for index, key := range keys {
+		wishlist[index].ID = key.StringID()
+	}
 
 	return wishlist, err
 }
@@ -41,14 +45,15 @@ func CreateWishlistItem(appContext appengine.Context, partyID string, personID s
 	return wishlistItem, err
 }
 
-func UpdateWishlistItem(appContext appengine.Context, partyID string, personID string, wishlistItem *model.WishlistItem) error {
+func UpdateWishlistItem(appContext appengine.Context, partyID string, personID string, wishlistItem *model.WishlistItem) (*model.WishlistItem, error) {
 	partyKey := datastore.NewKey(appContext, "Party", partyID, 0, nil)
 	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)
 	itemKey := datastore.NewKey(appContext, "WishlistItem", wishlistItem.ID, 0, personKey)
 
-	_, err := datastore.Put(appContext, itemKey, wishlistItem)
+	key, err := datastore.Put(appContext, itemKey, wishlistItem)
+	wishlistItem.ID = key.StringID()
 
-	return err
+	return wishlistItem, err
 }
 
 func DeleteWishlistItem(appContext appengine.Context, partyID string, personID string, wishlistItem *model.WishlistItem) error {
@@ -75,7 +80,11 @@ func GetBoughtItems(appContext appengine.Context, partyID string, personID strin
 	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)
 
 	var boughtItems []model.BoughtItem
-	_, err := datastore.NewQuery("BoughtItem").Ancestor(personKey).GetAll(appContext, &boughtItems)
+	keys, err := datastore.NewQuery("BoughtItem").Ancestor(personKey).GetAll(appContext, &boughtItems)
+	
+	for index, key := range keys {
+		boughtItems[index].ID = key.StringID()
+	}
 
 	return boughtItems, err
 }
@@ -91,14 +100,15 @@ func CreateBoughtItem(appContext appengine.Context, partyID string, personID str
 	return boughtItem, err
 }
 
-func UpdateBoughtItem(appContext appengine.Context, partyID string, personID string, boughtItem *model.BoughtItem) error {
+func UpdateBoughtItem(appContext appengine.Context, partyID string, personID string, boughtItem *model.BoughtItem) (*model.BoughtItem, error) {
 	partyKey := datastore.NewKey(appContext, "Party", partyID, 0, nil)
 	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)
 	itemKey := datastore.NewKey(appContext, "BoughtItem", boughtItem.ID, 0, personKey)
 
-	_, err := datastore.Put(appContext, itemKey, boughtItem)
+	key, err := datastore.Put(appContext, itemKey, boughtItem)
+	boughtItem.ID = key.StringID()
 
-	return err
+	return boughtItem, err
 }
 
 func DeleteBoughtItem(appContext appengine.Context, partyID string, personID string, boughtItem *model.BoughtItem) error {
