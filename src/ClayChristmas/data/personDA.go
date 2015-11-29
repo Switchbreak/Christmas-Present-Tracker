@@ -24,6 +24,15 @@ func GetLoggedInPerson(appContext appengine.Context) (string, error) {
 	return keys[0].StringID(), nil
 }
 
+func GetPeople(appContext appengine.Context) ([]model.Person, error) {
+	query := datastore.NewQuery("Person")
+
+	var people []model.Person
+	_, err := query.GetAll(appContext, &people)
+
+	return people, err
+}
+
 func GetPerson(appContext appengine.Context, name string) (*model.Person, error) {
 	personKey := datastore.NewKey(appContext, "Person", name, 0, nil)
 
