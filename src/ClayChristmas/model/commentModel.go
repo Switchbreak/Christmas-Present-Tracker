@@ -7,7 +7,7 @@ import (
 type Comment struct {
 	ID		string `datastore:"-"`
 	Comment	string
-	Author	Person
+	Author	string
 	Private	bool
 	Date	time.Time
 }

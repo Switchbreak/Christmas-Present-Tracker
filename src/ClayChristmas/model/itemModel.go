@@ -9,11 +9,11 @@ type Item struct {
 type WishlistItem struct {
 	ID			string `datastore:"-"`
 	Item		Item
-	BoughtBy	Person
+	BoughtBy	string
 }
 
 type BoughtItem struct {
 	ID			string `datastore:"-"`
 	Item		Item
-	BoughtFor	Person
+	BoughtBy	string
 }
