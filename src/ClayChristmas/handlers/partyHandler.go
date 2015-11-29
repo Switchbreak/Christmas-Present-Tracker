@@ -55,8 +55,6 @@ func CreateParty(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// TODO: Invite people
-
 func GetParty(w http.ResponseWriter, r *http.Request) {
 	appContext := appengine.NewContext(r)
 	vars := mux.Vars(r)
@@ -91,6 +89,24 @@ func UpdateParty(w http.ResponseWriter, r *http.Request) {
 		party.CreatedDate = checkParty.CreatedDate
 
 		if err := data.UpdateParty(appContext, &party); err != nil {
+			panic(err)
+		}
+	} else {
+		http.Error(w, "Access Denied", http.StatusForbidden)
+	}
+}
+
+func InvitePerson(w http.ResponseWriter, r *http.Request) {
+	appContext := appengine.NewContext(r)
+	vars := mux.Vars(r)
+
+	checkParty, err := data.GetParty(appContext, vars["id"])
+	if err != nil {
+		panic(err)
+	}
+
+	if checkPartyOwner(appContext, checkParty) {
+		if err := data.InvitePerson(appContext, vars["id"], vars["personID"]); err != nil {
 			panic(err)
 		}
 	} else {
