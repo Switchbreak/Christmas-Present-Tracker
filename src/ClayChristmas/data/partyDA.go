@@ -7,6 +7,8 @@ import (
 	"ClayChristmas/model"
 )
 
+var ErrNoSuchEntity = datastore.ErrNoSuchEntity
+
 func GetParty(appContext appengine.Context, title string) (*model.Party, error) {
 	partyKey := datastore.NewKey(appContext, "Party", title, 0, nil)
 

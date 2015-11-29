@@ -10,32 +10,29 @@ import (
 	"ClayChristmas/model"
 )
 
-func GetLoggedInPerson(appContext appengine.Context) (*datastore.Key, error) {
+func GetLoggedInPerson(appContext appengine.Context) (string, error) {
 	currentUser := user.Current(appContext)
 
 	query := datastore.NewQuery("Person").Filter("User.ID =", currentUser.ID).Limit(1).KeysOnly()
 	keys, err := query.GetAll(appContext, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	if len(keys) < 1 {
-		return nil, errors.New("User not found")
+		return "", errors.New("User not found")
 	}
-	return keys[0], nil
+	return keys[0].StringID(), nil
 }
 
-func GetPersonByKey(appContext appengine.Context, personKey *datastore.Key) (*model.Person, error) {
+func GetPerson(appContext appengine.Context, name string) (*model.Person, error) {
+	personKey := datastore.NewKey(appContext, "Person", name, 0, nil)
+
 	var person model.Person
 	if err := datastore.Get(appContext, personKey, &person); err != nil {
 		return nil, err
 	}
 
 	return &person, nil
-}
-
-func GetPerson(appContext appengine.Context, name string) (*model.Person, error) {
-	personKey := datastore.NewKey(appContext, "Person", name, 0, nil)
-	return GetPersonByKey(appContext, personKey)
 }
 
 func UpdatePerson(appContext appengine.Context, person *model.Person) error {
