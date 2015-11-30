@@ -1,1 +1,31 @@
-TEST!
+<!DOCTYPE html>
+<html lang="en" ng-app="ChristmasTracker">
+	<head>
+		<title>Present Tracker</title>
+		<base href="/" />
+		
+		<link rel="stylesheet" href="static/bootstrap.min.css" />
+		
+		<script type="text/javascript" src="static/scripts/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="static/scripts/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/scripts/angular.min.js"></script>
+		<script type="text/javascript" src="static/scripts/angular-resource.min.js"></script>
+		<script type="text/javascript" src="static/scripts/angular-route.min.js"></script> 
+		
+		<script type="text/javascript" src="static/scripts/christmas-tracker.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h1>Present Tracker</h1>
+			</div>
+			<div class="alert alert-danger" ng-show="errorMessage">
+				<h4>{{errorMessage.status}} - {{errorMessage.statusText}}</h4>
+				<div>{{errorMessage.config.method}} {{errorMessage.config.url}}</div>
+				<pre>{{errorMessage.data}}</pre>
+			</div>
+			<div ng-view>
+			</div>
+		</div>
+	</body>
+</html>

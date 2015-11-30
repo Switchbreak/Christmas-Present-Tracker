@@ -28,6 +28,25 @@ func GetInvitedPeople(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func GetLoggedInPerson(w http.ResponseWriter, r *http.Request) {
+	appContext := appengine.NewContext(r)
+
+	personID, err := data.GetLoggedInPerson(appContext)
+	if err == data.UserNotFound {
+		http.Error(w, err.Error(), http.StatusNotFound)
+		return
+	} else if err != nil {
+		panic(err)
+	}
+
+	person, err := data.GetPerson(appContext, personID)
+	if err != nil {
+		panic(err)
+	}
+
+	respond(w, person)
+}
+
 func GetPeople(w http.ResponseWriter, r *http.Request) {
 	appContext := appengine.NewContext(r)
 
@@ -117,7 +136,7 @@ func LinkPerson(w http.ResponseWriter, r *http.Request) {
 	appContext := appengine.NewContext(r)
 	vars := mux.Vars(r)
 
-	if _, err := data.GetLoggedInPerson(appContext); err == data.ErrNoSuchEntity {
+	if _, err := data.GetLoggedInPerson(appContext); err == data.UserNotFound {
 		person, err := data.GetPerson(appContext, vars["id"])
 		if err != nil {
 			panic(err)

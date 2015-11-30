@@ -10,8 +10,14 @@ import (
 	"ClayChristmas/model"
 )
 
+var UserNotLoggedIn = errors.New("User not logged in")
+var UserNotFound = errors.New("User not found")
+
 func GetLoggedInPerson(appContext appengine.Context) (string, error) {
 	currentUser := user.Current(appContext)
+	if currentUser == nil {
+		return "", UserNotLoggedIn
+	}
 
 	query := datastore.NewQuery("Person").Filter("User.ID =", currentUser.ID).Limit(1).KeysOnly()
 	keys, err := query.GetAll(appContext, nil)
@@ -19,7 +25,7 @@ func GetLoggedInPerson(appContext appengine.Context) (string, error) {
 		return "", err
 	}
 	if len(keys) < 1 {
-		return "", errors.New("User not found")
+		return "", UserNotFound
 	}
 	return keys[0].StringID(), nil
 }
@@ -63,7 +69,7 @@ func UpdatePerson(appContext appengine.Context, person *model.Person) error {
 	//		return err
 	//	}
 
-	_, err := datastore.Put(appContext, personKey, &person)
+	_, err := datastore.Put(appContext, personKey, person)
 	return err
 }
 

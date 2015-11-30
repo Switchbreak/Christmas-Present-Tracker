@@ -6,12 +6,14 @@ api_version: go1
 handlers:
 - url: /api/.*
   script: _go_app
+  login: required
 - url: /static/(.+)
   static_files: static/\1
   upload: static/.+
 - url: /.*
   static_files: static/index.html
   upload: static/index.html
+  login: required
 
 error_handlers:
 - file: error_files/default_error.html

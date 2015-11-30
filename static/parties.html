@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Parties</div>
+	<div class="panel-body" ng-hide="parties.$resolved">
+		Loading...
+	</div>
+	<ul class="list-group" ng-show="parties.$resolved">
+		<a class="list-group-item" ng-repeat="party in parties">{{party.Title}} - {{party.Date | date}} <small>{{party.Description}}</small></a>
+		<li class="list-group-item" ng-show="!parties.length"><i>No parties</i></li>
+	</ul>
+</div>
+<div>
+	<div id="CreatePartyModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="CreatePartyModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="CreatePartyModalLabel">Create Party</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+						<div class="form-group">
+							<label for="PartyTitle" class="col-sm-3 control-label">Title</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" id="PartyTitle" ng-model="newParty.Title" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="PartyDescription" class="col-sm-3 control-label">Description</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" id="PartyDescription" ng-model="newParty.Description" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="PartyDate" class="col-sm-3 control-label">Date</label>
+							<div class="col-sm-9">
+								<input type="date" class="form-control" id="PartyDate" ng-model="newParty.Date" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveParty( newParty )">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CreatePartyModal" ng-click="newParty = createParty()">Create Party</button>
+</div>

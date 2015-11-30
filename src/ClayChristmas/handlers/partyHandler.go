@@ -53,6 +53,10 @@ func CreateParty(w http.ResponseWriter, r *http.Request) {
 	if err := data.UpdateParty(appContext, &party); err != nil {
 		panic(err)
 	}
+
+	if err := data.InvitePerson(appContext, party.Title, personID); err != nil {
+		panic(err)
+	}
 }
 
 func GetParty(w http.ResponseWriter, r *http.Request) {
