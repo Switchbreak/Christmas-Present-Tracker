@@ -10,6 +10,9 @@ handlers:
 - url: /static/(.+)
   static_files: static/\1
   upload: static/.+
+- url: /fonts/(.+)
+  static_files: static/fonts/\1
+  upload: static/fonts/.+
 - url: /.*
   static_files: static/index.html
   upload: static/index.html

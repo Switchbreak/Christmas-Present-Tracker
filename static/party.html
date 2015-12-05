@@ -1,0 +1,57 @@
+<h3>{{party.Title}}</h3>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">Invited people</div>
+			<div class="panel-body" ng-hide="invitedPeople.$resolved">
+				Loading...
+			</div>
+			<ul class="list-group" ng-show="invitedPeople.$resolved">
+				<a class="list-group-item" ng-repeat="person in invitedPeople">
+					<avatar name="person.Name" />
+					{{person.Name}}
+				</a>
+				<li class="list-group-item" ng-show="!invitedPeople.length"><i>No invited people</i></li>
+			</ul>
+		</div>
+		<div id="InvitePersonModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="InvitePersonModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="InvitePersonModalLabel">Invite Person</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<fieldset>
+								<legend>Users</legend>
+								<div class="form-group">
+									<label for="Person" class="col-sm-3 control-label">Person</label>
+									<div class="col-sm-9">
+										<span ng-hide="people.$resolved">Loading people...</span>
+										<select ng-show="people.$resolved" class="form-control" id="Person" ng-options="person.Name for person in people" ng-model="invitedPerson.Name" />
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary pull-right" data-dismiss="modal" ng-click="invitePerson( invitedPerson )">Invite</button>
+							</fieldset>
+							<fieldset>
+								<legend>Invite a new user to register</legend>
+								<div class="form-group">
+									<label for="Name" class="col-sm-3 control-label">Name:</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" id="Name" ng-model="invitedPerson.NewName" />
+									</div>
+								</div>
+								<button type="button" class="btn btn-default pull-right" data-dismiss="modal" ng-click="createPerson( invitedPerson )">Invite</button>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#InvitePersonModal" ng-click="invite()">Invite Person</button>
+	</div>
+	<div class="col-sm-6">
+		<comments party="partyTitle" />
+	</div>
+</div>

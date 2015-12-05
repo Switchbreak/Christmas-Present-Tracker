@@ -4,7 +4,7 @@
 		Loading...
 	</div>
 	<ul class="list-group" ng-show="parties.$resolved">
-		<a class="list-group-item" ng-repeat="party in parties">{{party.Title}} - {{party.Date | date}} <small>{{party.Description}}</small></a>
+		<a class="list-group-item" ng-repeat="party in parties" ng-href="party/{{party.Title}}">{{party.Title}} - {{party.Date | date}} <small>{{party.Description}}</small></a>
 		<li class="list-group-item" ng-show="!parties.length"><i>No parties</i></li>
 	</ul>
 </div>
