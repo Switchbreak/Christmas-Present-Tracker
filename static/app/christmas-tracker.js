@@ -19,3 +19,7 @@ angular.module("ChristmasTracker", ["ngRoute", "ngResource"])
 			}
 		});
 	})
+	
+	.filter('escape', function() {
+		return window.encodeURIComponent;
+	})

@@ -44,7 +44,7 @@
 			</div>
 			<div class="modal-body">
 				<p>Copy this link to the person you have added to invite them to register and claim their name</p>
-				<input type="text" class="form-control" readonly value="{{host}}/new-person?link={{newPerson.Name}}" /> 
+				<input type="text" class="form-control" readonly value="{{host}}/new-person?link={{newPerson.Name | escape}}" /> 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
