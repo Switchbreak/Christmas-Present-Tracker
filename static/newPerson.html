@@ -1,0 +1,30 @@
+<div class="panel panel-default" style="width: 20em; margin: auto;">
+	<div class="panel-heading">New User</div>
+	<div class="panel-body">
+		<div ng-hide="saving">
+			<form ng-hide="link">
+				<div class="form-group">
+					<input type="text" class="form-control input-lg" placeholder="Enter your name" ng-model="newPerson.Name" />
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary full-width" ng-click="createUser()">Create New User</button>
+				</div>
+			</form>
+			<form ng-show="link">
+				<div class="form-group">
+					<h4>Register to claim this name</h4>
+				</div>
+				<div class="form-group">
+					<input type="text" readonly class="form-control input-lg" ng-model="link" />
+				</div>
+				<div class="form-group">
+					<button class="btn btn-lg btn-primary full-width" ng-click="linkUser( link )">Register</button>
+				</div>
+			</form>
+		</div>
+		<div ng-show="saving" class="text-center">
+			<h1 class="glyphicon glyphicon-refresh glyphicon-spin"></h1>
+			<h4>Saving</h4>
+		</div>
+	</div>
+</div>

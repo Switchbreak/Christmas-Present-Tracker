@@ -8,7 +8,7 @@ import (
 )
 
 func GetComments(appContext appengine.Context, partyID string, personID string) ([]model.Comment, error) {
-	query := datastore.NewQuery("Comment").Ancestor(getParentKey(appContext, partyID, personID))
+	query := datastore.NewQuery("Comment").Ancestor(getParentKey(appContext, partyID, personID)).Order( "Date" )
 
 	var comments []model.Comment
 	keys, err := query.GetAll(appContext, &comments)

@@ -15,6 +15,7 @@
 	height: 50px;
 	border-radius: 50%;
 	text-shadow: 0 4px 0 rgba( 0, 0, 0, 0.1 );
+	box-shadow: 2px 2px 0 rgba( 0, 0, 0, 0.2 );
 	color: white;
 	vertical-align: middle;
 	overflow: hidden;
@@ -27,4 +28,68 @@
 	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;
+}
+
+.navbar-header .avatar-no-image {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-right: 1em;
+	vertical-align: middle;
+}
+
+.navbar .breadcrumb {
+	margin-top: 13px;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.valign {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
+.strong {
+	font-weight: bold;
+}
+
+li .hoverbutton {
+	display: none;
+	color: grey;
+}
+
+	li:hover .hoverbutton {
+		display: block;
+	}
+
+	li:hover .hoverbutton:hover {
+		display: block;
+		color: black;
+	}
+
+.glyphicon-spin {
+  -webkit-animation: spin 1000ms infinite linear;
+  animation: spin 1000ms infinite linear;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
 }

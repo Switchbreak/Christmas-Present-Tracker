@@ -151,7 +151,7 @@ func CreateBoughtItem(w http.ResponseWriter, r *http.Request) {
 		
 		boughtItem.BoughtBy = personID
 		
-		newItem, err := data.CreateBoughtItem(appContext, vars["partyID"], personID, &boughtItem)
+		newItem, err := data.CreateBoughtItem(appContext, vars["partyID"], vars["personID"], &boughtItem)
 		if err != nil {
 			panic(err)
 		}

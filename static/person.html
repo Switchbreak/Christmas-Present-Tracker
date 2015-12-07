@@ -1,0 +1,68 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid" style="vertical-align: middle;">
+		<div class="navbar-header">
+			<avatar name="person.Name" />
+		</div>
+		<div class="crumbs">
+			<ol class="breadcrumb">
+			  <li><a ng-href="/party/{{party.Title}}">{{party.Title}}</a></li>
+			  <li class="active"><a ng-href="/party/{{party.Title}}/{{person.Name}}">{{person.Name}}</a></li>
+			</ol>
+		</div>
+	</div>
+</nav>
+<div class="row form-group">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">Wishlist</div>
+			<div class="panel-body" ng-hide="wishlist.$resolved">
+				<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+				Loading...
+			</div>
+			<ul class="list-group" id="Wishlist" ng-show="wishlist.$resolved">
+				<li class="list-group-item" ng-class="{ disabled: item.saving }" ng-repeat="item in wishlist">
+					<a class="hoverbutton pull-right" href="#" ng-click="deleteWishlistItem( item )" ng-if="viewingSelf"><span class="glyphicon glyphicon-trash"></span></a>
+					{{item.Item.Name}}
+				</li>
+				<li class="list-group-item" ng-show="!wishlist.length"><i>Wishlist is empty</i></li>
+			</ul>
+		</div>
+		<form>
+			<div class="input-group" ng-show="viewingSelf">
+				<input type="text" class="form-control" id="WishlistItem" placeholder="Add item to wishlist" ng-model="newWishlistItem.Item.Name" />
+				<span class="input-group-btn">
+					<button class="btn btn-primary" ng-click="saveWishlistItem( newWishlistItem )" aria-label="Add Wishlist Item"><span class="glyphicon glyphicon-plus" /></button>
+				</span>
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-6" ng-if="!viewingSelf">
+		<div class="panel panel-default">
+			<div class="panel-heading">Presents Bought <small>(private - will not be seen by {{person.Name}})</small></div>
+			<div class="panel-body" ng-hide="boughtItems.$resolved">
+				<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+				Loading...
+			</div>
+			<ul class="list-group" id="BoughtItems" ng-show="boughtItems.$resolved">
+				<li class="list-group-item" ng-class="{ disabled: item.saving }" ng-repeat="item in boughtItems">
+					<div class="row">
+						<div class="col-sm-10 valign">
+							<a class="hoverbutton pull-right" href="#" ng-click="deleteBoughtItem( item )" ng-if="item.BoughtBy == currentPerson.Name"><span class="glyphicon glyphicon-trash"></span></a>
+							{{item.Item.Name}}
+						</div><div class="col-sm-2 text-right valign"><avatar name="item.BoughtBy"></div>
+					</div>
+				</li>
+				<li class="list-group-item" ng-show="!boughtItems.length"><i>No presents bought</i></li>
+			</ul>
+		</div>
+		<form>
+			<div class="input-group">
+				<input type="text" class="form-control" id="BoughtItem" placeholder="Add present bought for {{person.Name}}" ng-model="newBoughtItem.Item.Name" />
+				<span class="input-group-btn">
+					<button class="btn btn-primary" ng-click="saveBoughtItem( newBoughtItem )" aria-label="Add Present"><span class="glyphicon glyphicon-plus" /></button>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+<comments party="partyTitle" person="personName" ng-if="!viewingSelf" />

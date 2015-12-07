@@ -17,7 +17,7 @@ func init() {
 
 	router.HandleFunc("/api/party/",						handlers.GetParties).Methods("GET")
 	
-	router.HandleFunc("/api/party/{id}/invite/{personID}",	handlers.GetInvitedPeople).Methods("POST")
+	router.HandleFunc("/api/party/{id}/invite/{personID}",	handlers.InvitePerson).Methods("POST")
 	router.HandleFunc("/api/party/{partyID}/invited",		handlers.GetInvitedPeople).Methods("GET")
 	router.HandleFunc("/api/party/{partyID}/comment",		handlers.GetPartyComments).Methods("GET")
 	router.HandleFunc("/api/party/{partyID}/comment",		handlers.CreateComment).Methods("POST")
@@ -29,6 +29,18 @@ func init() {
 	router.HandleFunc("/api/party/{partyID}/{personID}/comment/{id}",	handlers.GetPersonComment).Methods("GET")
 	router.HandleFunc("/api/party/{partyID}/{personID}/comment/{id}",	handlers.UpdateComment).Methods("PUT")
 	router.HandleFunc("/api/party/{partyID}/{personID}/comment/{id}",	handlers.DeleteComment).Methods("DELETE")
+	
+	router.HandleFunc("/api/party/{partyID}/{personID}/wishlist",		handlers.GetWishlistItems).Methods("GET")
+	router.HandleFunc("/api/party/{partyID}/{personID}/wishlist",		handlers.CreateWishlistItem).Methods("POST")
+	router.HandleFunc("/api/party/{partyID}/{personID}/wishlist/{id}",	handlers.GetWishlistItem).Methods("GET")
+	router.HandleFunc("/api/party/{partyID}/{personID}/wishlist/{id}",	handlers.UpdateWishlistItem).Methods("PUT")
+	router.HandleFunc("/api/party/{partyID}/{personID}/wishlist/{id}",	handlers.DeleteWishlistItem).Methods("DELETE")
+	
+	router.HandleFunc("/api/party/{partyID}/{personID}/bought",			handlers.GetBoughtItems).Methods("GET")
+	router.HandleFunc("/api/party/{partyID}/{personID}/bought",			handlers.CreateBoughtItem).Methods("POST")
+	router.HandleFunc("/api/party/{partyID}/{personID}/bought/{id}",	handlers.GetBoughtItem).Methods("GET")
+	router.HandleFunc("/api/party/{partyID}/{personID}/bought/{id}",	handlers.UpdateBoughtItem).Methods("PUT")
+	router.HandleFunc("/api/party/{partyID}/{personID}/bought/{id}",	handlers.DeleteBoughtItem).Methods("DELETE")
 	
 	router.HandleFunc("/api/party/{id}",					handlers.GetParty).Methods("GET")
 	router.HandleFunc("/api/party/{id}",					handlers.CreateParty).Methods("POST")
@@ -43,19 +55,8 @@ func init() {
 	router.HandleFunc("/api/person/{id}",					handlers.UpdatePerson).Methods("PUT")
 	router.HandleFunc("/api/person/{id}",					handlers.DeletePerson).Methods("DELETE")
 	
-	router.HandleFunc("/api/wishlist/",						handlers.GetWishlistItems).Methods("GET")
-	router.HandleFunc("/api/wishlist/{id}",					handlers.CreateWishlistItem).Methods("POST")
-	router.HandleFunc("/api/wishlist/{id}",					handlers.GetWishlistItem).Methods("GET")
-	router.HandleFunc("/api/wishlist/{id}",					handlers.UpdateWishlistItem).Methods("PUT")
-	router.HandleFunc("/api/wishlist/{id}",					handlers.DeleteWishlistItem).Methods("DELETE")
-	
-	router.HandleFunc("/api/bought/",						handlers.GetBoughtItems).Methods("GET")
-	router.HandleFunc("/api/bought/{id}",					handlers.CreateBoughtItem).Methods("POST")
-	router.HandleFunc("/api/bought/{id}",					handlers.GetBoughtItem).Methods("GET")
-	router.HandleFunc("/api/bought/{id}",					handlers.UpdateBoughtItem).Methods("PUT")
-	router.HandleFunc("/api/bought/{id}",					handlers.DeleteBoughtItem).Methods("DELETE")
-	
 	router.HandleFunc("/api/markLogin",						handlers.MarkLogin).Methods("POST")
+	router.HandleFunc("/api/sign-out",						handlers.LogoutScreen).Queries("returnURL", "{returnURL}")
 
 	http.Handle("/", router)
 }

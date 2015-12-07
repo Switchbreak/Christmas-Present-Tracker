@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+	<div class="panel-heading">Comments <small ng-show="person">(private - will not be seen by {{person}})</small></div>
+	<div class="panel-body" ng-hide="comments.$resolved">
+		<span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+		Loading...
+	</div>
+	<ul class="list-group" ng-show="comments.$resolved" id="comments">
+		<li class="list-group-item" ng-class="{ disabled: comment.saving }" ng-repeat="comment in comments">
+			<avatar name="comment.Author" />
+			{{comment.Comment}}
+			<small class="pull-right">{{comment.Date | date:'short'}}</small>
+		</li>
+		<li class="list-group-item" ng-show="!comments.length"><i>No comments</i></li>
+	</ul>
+</div>
+<form>
+	<div class="input-group">
+		<input type="text" class="form-control" id="Comment" placeholder="Comment" ng-model="newComment.Comment" />
+		<span class="input-group-btn">
+			<button class="btn btn-primary" ng-click="saveComment( newComment )" aria-label="Add Comment"><span class="glyphicon glyphicon-plus" /></button>
+		</span>
+	</div>
+</form>
