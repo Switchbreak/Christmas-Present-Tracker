@@ -6,9 +6,10 @@
 	</div>
 	<ul class="list-group" ng-show="comments.$resolved" id="comments">
 		<li class="list-group-item" ng-class="{ disabled: comment.saving }" ng-repeat="comment in comments">
-			<avatar name="comment.Author" />
-			{{comment.Comment}}
-			<small class="pull-right">{{comment.Date | date:'short'}}</small>
+			<div class="row">
+				<div class="col-sm-2 valign"><avatar name="comment.Author" /></div><div class="col-sm-7 valign">{{comment.Comment}}</div>
+				<div class="col-sm-3 text-right pull-right"><small>{{comment.Date | date:'short'}}</small></div>
+			</div>
 		</li>
 		<li class="list-group-item" ng-show="!comments.length"><i>No comments</i></li>
 	</ul>
