@@ -41,6 +41,13 @@ func GetWishlist(appContext appengine.Context, partyID string, personID string) 
 	return wishlist, err
 }
 
+func GetWishlistCount(appContext appengine.Context, partyID string, personID string) (int, error) {
+	partyKey := datastore.NewKey(appContext, "Party", partyID, 0, nil)
+	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)
+
+	return datastore.NewQuery("WishlistItem").Ancestor(personKey).KeysOnly().Count( appContext ) 
+}
+
 func CreateWishlistItem(appContext appengine.Context, partyID string, personID string, wishlistItem *model.WishlistItem) (*model.WishlistItem, error) {
 	partyKey := datastore.NewKey(appContext, "Party", partyID, 0, nil)
 	personKey := datastore.NewKey(appContext, "InvitedPerson", personID, 0, partyKey)

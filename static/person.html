@@ -28,7 +28,7 @@
 			</ul>
 		</div>
 		<form>
-			<div class="input-group" ng-show="viewingSelf">
+			<div class="input-group" ng-show="viewingSelf || !person.Registered">
 				<input type="text" class="form-control" id="WishlistItem" placeholder="Add item to wishlist" ng-model="newWishlistItem.Item.Name" />
 				<span class="input-group-btn">
 					<button class="btn btn-primary" ng-click="saveWishlistItem( newWishlistItem )" aria-label="Add Wishlist Item"><span class="glyphicon glyphicon-plus" /></button>

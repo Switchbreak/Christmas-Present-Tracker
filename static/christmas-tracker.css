@@ -4,7 +4,7 @@
 }
 
 .panel .list-group {
-	max-height: 20em;
+	max-height: 30em;
 	overflow-y: auto;
 }
 
@@ -54,6 +54,24 @@
 .strong {
 	font-weight: bold;
 }
+
+.unregistered {
+	font-style: italic;
+}
+
+.plainlink {
+	color: grey;
+	text-decoration: none;
+}
+
+	.plainlink:hover {
+		color: black;
+		text-decoration: none;
+	}
+
+	.plainlink:focus {
+		text-decoration: none;
+	}
 
 li .hoverbutton {
 	display: none;

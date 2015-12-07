@@ -10,4 +10,6 @@ type Person struct {
 	User		user.User `json:"-"`
 	Name		string
 	LastLogin	time.Time
+	Registered	bool `datastore:"-"`
+	Items		int `datastore:"-"`
 }

@@ -21,6 +21,17 @@ func GetInvitedPeople(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
+		
+		for index, person := range people {
+			people[index].Registered = (person.User.ID != "")
+			
+			itemCount, err := data.GetWishlistCount( appContext, vars["partyID"], person.Name )
+			if err != nil {
+				panic( err )
+			}
+			
+			people[index].Items = itemCount
+		} 
 
 		respond(w, people)
 	} else {
@@ -43,6 +54,8 @@ func GetLoggedInPerson(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+	
+	person.Registered = true
 
 	respond(w, person)
 }
@@ -54,6 +67,10 @@ func GetPeople(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
+
+	for index, person := range people {
+		people[index].Registered = (person.User.ID != "")
+	} 
 
 	respond(w, people)
 }
@@ -87,6 +104,8 @@ func GetPerson(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
+	person.Registered = (person.User.ID != "")
+	
 	respond(w, person)
 }
 

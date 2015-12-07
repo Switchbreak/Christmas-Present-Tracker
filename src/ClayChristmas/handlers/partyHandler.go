@@ -104,12 +104,7 @@ func InvitePerson(w http.ResponseWriter, r *http.Request) {
 	appContext := appengine.NewContext(r)
 	vars := mux.Vars(r)
 
-	checkParty, err := data.GetParty(appContext, vars["id"])
-	if err != nil {
-		panic(err)
-	}
-
-	if checkPartyOwner(appContext, checkParty) {
+	if checkInvited(appContext, vars["id"]) {
 		if err := data.InvitePerson(appContext, vars["id"], vars["personID"]); err != nil {
 			panic(err)
 		}

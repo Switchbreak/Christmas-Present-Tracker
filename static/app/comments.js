@@ -7,8 +7,6 @@ angular.module("ChristmasTracker")
 		}).catch(function(reason) {
 			$rootScope.errorMessage = reason;
 		});
-		
-		$scope.newComment = new comment();
 	};
 	
 	$scope.saveComment = function( newComment ) {
@@ -33,6 +31,7 @@ angular.module("ChristmasTracker")
 	};
 	
 	$scope.getComments();
+	$scope.newComment = new comment();
 })
 .directive("comments", function() {
 	return {

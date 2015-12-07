@@ -36,11 +36,23 @@ func CreateWishlistItem(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			panic(err)
 		}
+		
+		if vars["personID"] != personID {
+			person, err := data.GetPerson(appContext, vars["personID"])
+			if err != nil {
+				panic(err)
+			}
+			
+			if person.Registered {
+				http.Error(w, "Access Denied", http.StatusForbidden)
+				return
+			}
+		}
 
 		var wishlistItem model.WishlistItem
 		getRequestObject(r, &wishlistItem)
 		
-		newItem, err := data.CreateWishlistItem(appContext, vars["partyID"], personID, &wishlistItem)
+		newItem, err := data.CreateWishlistItem(appContext, vars["partyID"], vars["personID"], &wishlistItem)
 		if err != nil {
 			panic(err)
 		}
