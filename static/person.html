@@ -4,6 +4,10 @@
 			<avatar name="person.Name" />
 		</div>
 		<div class="crumbs">
+			<div class="invite-link" ng-show="person.$resolved && !person.Registered">
+				<a id="InviteLink" href="#" data-toggle="popover" title="Copy this registration link to {{person.Name}}" data-placement="bottom" data-html="true" data-content="<input type='text' class='form-control' readonly value='{{host}}/new-person?link={{person.Name | escape}}' />">Get invite link</a>
+				<script type="text/javascript">$('#InviteLink').popover();</script>
+			</div>
 			<ol class="breadcrumb">
 			  <li><a ng-href="/party/{{party.Title}}">{{party.Title}}</a></li>
 			  <li class="active"><a ng-href="/party/{{party.Title}}/{{person.Name}}">{{person.Name}}</a></li>

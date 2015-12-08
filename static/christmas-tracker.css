@@ -59,6 +59,16 @@
 	font-style: italic;
 }
 
+.invite-link {
+	float: right;
+ 	padding: 8px 15px;
+}
+
+.popover {
+	width: 32em;
+	max-width: 32em;
+}
+
 .plainlink {
 	color: grey;
 	text-decoration: none;

@@ -1,5 +1,5 @@
 angular.module("ChristmasTracker")
-.controller("personCtrl", function($rootScope, $scope, $routeParams, $timeout, party, person, wishlist, boughtItem) {
+.controller("personCtrl", function($rootScope, $scope, $routeParams, $timeout, $location, party, person, wishlist, boughtItem) {
 	$scope.getParty = function() {
 		$scope.party = party.get( { title: $routeParams.title } );
 		$scope.party.$promise.catch(function(reason) {
@@ -86,6 +86,7 @@ angular.module("ChristmasTracker")
 		$scope.partyTitle = $routeParams.title;
 		$scope.personName = $routeParams.name;
 		$scope.viewingSelf = ($scope.personName == $rootScope.currentPerson.Name);
+		$scope.host = $location.absUrl().replace($location.url(), "");
 		
 		$scope.getParty();
 		$scope.getPerson();
